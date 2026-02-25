@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Form\RegistrationFormularyController;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,28 +11,25 @@ use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class SecurityController extends AbstractController
-{
+class SecurityController extends AbstractController{
     #[Route('/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
+    public function login(AuthenticationUtils $authenticationUtils): Response{
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('test/login.html.twig', [
+        return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
         ]);
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $em): Response
-    {
+    public function register(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $em): Response{
         $user = new User();
         $form = $this->createForm(RegistrationFormularyController::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()){
             $user->setPassword(
                 $hasher->hashPassword($user, $form->get('plainPassword')->getData())
             );
@@ -44,7 +40,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('test/register.html.twig', [
+        return $this->render('security/register.html.twig', [
             'form' => $form,
         ]);
     }
