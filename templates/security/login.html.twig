@@ -7,7 +7,7 @@
         .form-group input { width: 100%; padding: 8px; font-size: 16px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
         .btn { width: 100%; padding: 10px; background: #4A90E2; color: white; border: none; font-size: 16px; border-radius: 4px; cursor: pointer; }
         .btn:hover { background: #357ABD; }
-        .error
+        .error {background:#FDECEA; color:#c0392b; padding:10px; border-radius:4px; margin-bottom:1em;}
     </style>
     <div class="example-wrapper">
         <h1>Login</h1>
@@ -24,7 +24,7 @@
                 </div>
 
             {% if error %}
-                <div style="background:#FDECEA; color:#c0392b; padding:10px; border-radius:4px; margin-bottom:1em;">
+                <div>
                     {{ error }}
                 </div>
             {% endif %}
