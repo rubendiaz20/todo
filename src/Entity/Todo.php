@@ -22,6 +22,13 @@ class Todo
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $description = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?user $userTodo = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -59,5 +66,29 @@ class Todo
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    public function getUserTodo(): ?user
+    {
+        return $this->userTodo;
+    }
+
+    public function setUserTodo(?user $userTodo): static
+    {
+        $this->userTodo = $userTodo;
+
+        return $this;
     }
 }

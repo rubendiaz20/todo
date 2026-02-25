@@ -9,11 +9,11 @@ use Symfony\Component\Routing\Attribute\Route;
 final class TestController extends AbstractController
 {
     #[Route('/', name: 'app_test')]
-    public function index(): Response
-    {
-        return $this->render('test/index.html.twig', [
+    public function index(): Response{
+        return $this->render('test/login.html.twig', [
             'controller_name' => 'TestController',
             'variable1' => 'Hola',
+            'error' => null
         ]);
     }
 }
