@@ -2,18 +2,22 @@
 
 namespace App\Controller;
 
+use App\Service\UserService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class SecurityController extends AbstractController{
+class SecurityController extends AbstractController
+{
+    public function __construct(
+        private UserService $userService
+    ) {}
+
     #[Route('/login', name: 'app_login')]
-    public function login(AuthenticationUtils $authenticationUtils): Response{
+    public function login(AuthenticationUtils $authenticationUtils): Response {
+
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
 
@@ -24,24 +28,20 @@ class SecurityController extends AbstractController{
     }
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $em): Response{
-        $user = new User();
-        $form = $this->createForm(RegistrationFormularyController::class, $user);
-        $form->handleRequest($request);
+    public function register(Request $request): Response {
 
-        if ($form->isSubmitted() && $form->isValid()){
-            $user->setPassword(
-                $hasher->hashPassword($user, $form->get('plainPassword')->getData())
+        if ($request->isMethod('POST')) {
+            $this->userService->register(
+                $request->request->get('_username'),
+                $request->request->get('_password')
             );
-
-            $em->persist($user);
-            $em->flush();
-
             return $this->redirectToRoute('app_login');
         }
+        return $this->render('security/register.html.twig');
+    }
 
-        return $this->render('security/register.html.twig', [
-            'form' => $form,
-        ]);
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): void {
+        throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

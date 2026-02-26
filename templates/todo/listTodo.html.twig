@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block nav %}{% endblock %}
+{% block title %}Todo List{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Todo/listTodo.css') }}">
+{% endblock %}
+{% block body %}
+
+    <a href="{{ path('app_logout') }}" class="btn-logout">← Salir</a>
+
+    <div class="page-wrapper">
+
+        <div class="page-header">
+            <h1>Mis tareas</h1>
+            <p class="subtitle">{{ todos|length }} tarea{{ todos|length != 1 ? 's' : '' }}</p>
+        </div>
+
+        <div class="todo-list">
+            {% for todo in todos %}
+                <div class="todo-item {{ todo.done ? 'done' : '' }}">
+                    <div class="checkbox-wrapper">
+                        <a href="{{ path('app_todo_toggle', {id: todo.id}) }}">
+                            <input type="checkbox" id="todo-{{ todo.id }}" {{ todo.done ? 'checked' : '' }}>
+                            <label for="todo-{{ todo.id }}">{{ todo.done ? '✓' : '' }}</label>
+                        </a>
+                    </div>
+                    <div class="todo-content">
+                        <div class="todo-title">{{ todo.title }}</div>
+                        {% if todo.description %}
+                            <div class="todo-desc">{{ todo.description }}</div>
+                        {% endif %}
+                        <div class="todo-date">{{ todo.createdAt|date('d/m/Y') }}</div>
+                    </div>
+                    <a href="{{ path('app_todo_delete', {id: todo.id}) }}" class="btn-danger">🗑</a>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <span class="empty-icon">📋</span>
+                    <p>No tienes tareas todavía</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{{ path('app_todo_create') }}" class="btn-create">
+            + Crear tarea
+        </a>
+
+    </div>
+
+{% endblock %}

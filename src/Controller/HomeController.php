@@ -6,13 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class ListController extends AbstractController
+class HomeController extends AbstractController
 {
-    #[Route('/list', name: 'app_list')]
+    #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        return $this->render('list/index.html.twig', [
-            'controller_name' => 'ListController',
-        ]);
+        if ($this->getUser()) {
+            return $this->redirectToRoute('app_list');
+        }
+        return $this->redirectToRoute('app_login');
     }
 }
