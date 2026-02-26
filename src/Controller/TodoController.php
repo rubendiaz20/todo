@@ -16,8 +16,8 @@ final class TodoController extends AbstractController
     ) {}
 
     #[Route('/list', name: 'app_list')]
-    public function index(): Response {
-
+    public function index(): Response
+    {
         $todos = $this->todoService->getByUser($this->getUser());
 
         return $this->render('todo/listTodo.html.twig', [
@@ -26,8 +26,8 @@ final class TodoController extends AbstractController
     }
 
     #[Route('/todo/create', name: 'app_todo_create')]
-    public function create(Request $request): Response {
-
+    public function create(Request $request): Response
+    {
         if ($request->isMethod('POST')) {
             $this->todoService->create(
                 $request->request->get('title'),
@@ -41,17 +41,35 @@ final class TodoController extends AbstractController
         return $this->render('todo/createTodo.html.twig');
     }
 
-    #[Route('/todo/toggle/{id}', name: 'app_todo_toggle')]
-    public function toggle(Todo $todo): Response {
+    #[Route('/todo/edit/{id}', name: 'app_todo_edit')]
+    public function edit(Todo $todo, Request $request): Response
+    {
+        if ($request->isMethod('POST')) {
+            $this->todoService->update(
+                $todo,
+                $request->request->get('title'),
+                $request->request->get('description')
+            );
 
+            return $this->redirectToRoute('app_list');
+        }
+
+        return $this->render('todo/editTodo.html.twig', [
+            'todo' => $todo,
+        ]);
+    }
+
+    #[Route('/todo/toggle/{id}', name: 'app_todo_toggle')]
+    public function toggle(Todo $todo): Response
+    {
         $this->todoService->toggle($todo);
 
         return $this->redirectToRoute('app_list');
     }
 
     #[Route('/todo/delete/{id}', name: 'app_todo_delete')]
-    public function delete(Todo $todo): Response {
-
+    public function delete(Todo $todo): Response
+    {
         $this->todoService->delete($todo);
 
         return $this->redirectToRoute('app_list');

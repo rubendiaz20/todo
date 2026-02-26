@@ -14,11 +14,13 @@ class TodoService
         private TodoRepository $todoRepository
     ) {}
 
-    public function getByUser(User $user): array{
+    public function getByUser(User $user): array
+    {
         return $this->todoRepository->findBy(['userTodo' => $user]);
     }
 
-    public function create(string $title, string $description, User $user): Todo{
+    public function create(string $title, string $description, User $user): Todo
+    {
         $todo = new Todo();
         $todo->setTitle($title);
         $todo->setDescription($description);
@@ -29,6 +31,13 @@ class TodoService
         $this->em->flush();
 
         return $todo;
+    }
+
+    public function update(Todo $todo, string $title, string $description): void
+    {
+        $todo->setTitle($title);
+        $todo->setDescription($description);
+        $this->em->flush();
     }
 
     public function toggle(Todo $todo): void

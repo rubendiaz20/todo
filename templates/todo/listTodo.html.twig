@@ -31,7 +31,10 @@
                         {% endif %}
                         <div class="todo-date">{{ todo.createdAt|date('d/m/Y') }}</div>
                     </div>
-                    <a href="{{ path('app_todo_delete', {id: todo.id}) }}" class="btn-danger">🗑</a>
+                    <div class="todo-actions">
+                        <a href="{{ path('app_todo_edit', {id: todo.id}) }}" class="btn-edit">✏️</a>
+                        <a href="{{ path('app_todo_delete', {id: todo.id}) }}" class="btn-danger">🗑</a>
+                    </div>
                 </div>
             {% else %}
                 <div class="empty-state">

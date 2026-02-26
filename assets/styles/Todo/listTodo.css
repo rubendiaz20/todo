@@ -177,6 +177,30 @@ body {
     letter-spacing: 0.3px;
 }
 
+/* ── Todo actions ── */
+.todo-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+/* ── Edit button ── */
+.btn-edit {
+    background: none;
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+    background: #f0f6ff;
+    color: #4A90E2;
+}
+
 /* ── Delete button ── */
 .btn-danger {
     background: none;
