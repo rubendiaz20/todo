@@ -27,7 +27,7 @@ class Todo
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?user $userTodo = null;
+    private ?User $userTodo = null;
 
     public function __construct()
     {
@@ -80,12 +80,12 @@ class Todo
         return $this;
     }
 
-    public function getUserTodo(): ?user
+    public function getUserTodo(): ?User
     {
         return $this->userTodo;
     }
 
-    public function setUserTodo(?user $userTodo): static
+    public function setUserTodo(?User $userTodo): static
     {
         $this->userTodo = $userTodo;
 
