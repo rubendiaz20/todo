@@ -11,20 +11,18 @@
         <h1>Crear cuenta</h1>
         <p class="subtitle">Únete y empieza a organizar tus tareas</p>
 
-        <form method="post" action="{{ path('app_register') }}">
-            <div class="form-group">
-                <label for="username">Usuario</label>
-                <input type="text" id="username" name="_username"
-                       placeholder="Tu nombre de usuario" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña</label>
-                <input type="password" id="password" name="_password"
-                       placeholder="Tu contraseña" required>
-            </div>
+        {{ form_start(registerForm, { action: path('app_register'), method: 'POST' }) }}
+        <div class="form-group">
+            {{ form_label(registerForm.username) }}
+            {{ form_widget(registerForm.username) }}
+        </div>
+        <div class="form-group">
+            {{ form_label(registerForm.password) }}
+            {{ form_widget(registerForm.password) }}
+        </div>
 
-            <button type="submit" class="btn">Crear cuenta</button>
-        </form>
+        <button type="submit" class="btn">Crear cuenta</button>
+        {{ form_end(registerForm) }}
 
         <div class="form-footer">
             ¿Ya tienes cuenta? <a href="{{ path('app_login') }}">Inicia sesión</a>

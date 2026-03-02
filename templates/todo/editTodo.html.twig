@@ -14,21 +14,24 @@
         </div>
 
         <div class="form-wrapper">
-            <form method="post" action="{{ path('app_todo_edit', {id: todo.id}) }}">
-                <div class="form-group">
-                    <label for="title">Título</label>
-                    <input type="text" id="title" name="title"
-                           value="{{ todo.title }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">Descripción</label>
-                    <textarea id="description" name="description">{{ todo.description }}</textarea>
-                </div>
-                <div class="actions">
-                    <a href="{{ path('app_list') }}" class="btn btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn">Guardar cambios</button>
-                </div>
-            </form>
+            {{ form_start(editTodoForm, { action: path('app_todo_edit', {id: todo.id}), method: 'POST' }) }}
+            <div class="form-group">
+                {{ form_label(editTodoForm.title) }}
+                {{ form_widget(editTodoForm.title) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(editTodoForm.description) }}
+                {{ form_widget(editTodoForm.description) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(editTodoForm.done) }}
+                {{ form_label(editTodoForm.done) }}
+            </div>
+            <div class="actions">
+                <a href="{{ path('app_list') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn">Guardar cambios</button>
+            </div>
+            {{ form_end(editTodoForm) }}
         </div>
 
     </div>

@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Todo;
+use App\Form\CreateTodoFormType;
+use App\Form\EditTodoFormType;
 use App\Service\TodoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,34 +30,45 @@ final class TodoController extends AbstractController
     #[Route('/todo/create', name: 'app_todo_create')]
     public function create(Request $request): Response
     {
-        if ($request->isMethod('POST')) {
+        $form = $this->createForm(CreateTodoFormType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
             $this->todoService->create(
-                $request->request->get('title'),
-                $request->request->get('description'),
+                $data->getTitle(),
+                $data->getDescription(),
                 $this->getUser()
             );
 
             return $this->redirectToRoute('app_list');
         }
 
-        return $this->render('todo/createTodo.html.twig');
+        return $this->render('todo/createTodo.html.twig', [
+            'createTodoForm' => $form,
+        ]);
     }
 
     #[Route('/todo/edit/{id}', name: 'app_todo_edit')]
     public function edit(Todo $todo, Request $request): Response
     {
-        if ($request->isMethod('POST')) {
+        $form = $this->createForm(EditTodoFormType::class, $todo);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->todoService->update(
                 $todo,
-                $request->request->get('title'),
-                $request->request->get('description')
+                $todo->getTitle(),
+                $todo->getDescription()
             );
 
             return $this->redirectToRoute('app_list');
         }
 
         return $this->render('todo/editTodo.html.twig', [
-            'todo' => $todo,
+            'editTodoForm' => $form,
+            'todo'         => $todo,
         ]);
     }
 
