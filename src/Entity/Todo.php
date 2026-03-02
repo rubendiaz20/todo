@@ -29,6 +29,10 @@ class Todo
     #[ORM\JoinColumn(nullable: false)]
     private ?User $userTodo = null;
 
+    #[ORM\ManyToOne(inversedBy: 'todos')]
+    #[ORM\JoinColumn(nullable: true)]
+    private ?Project $project = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -88,6 +92,18 @@ class Todo
     public function setUserTodo(?User $userTodo): static
     {
         $this->userTodo = $userTodo;
+
+        return $this;
+    }
+
+    public function getProject(): ?Project
+    {
+        return $this->project;
+    }
+
+    public function setProject(?Project $project): static
+    {
+        $this->project = $project;
 
         return $this;
     }

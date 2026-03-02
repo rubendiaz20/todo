@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block nav %}{% endblock %}
+{% block title %}Mis Proyectos{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Projects/Listprojects.css') }}">
+{% endblock %}
+{% block body %}
+
+    <a href="{{ path('app_logout') }}" class="btn-logout">← Salir</a>
+    <a href="{{ path('app_list') }}" class="btn-tasks">📋 Mis tareas</a>
+
+    <div class="page-wrapper">
+
+        <div class="page-header">
+            <h1>Mis proyectos</h1>
+            <p class="subtitle">{{ projects|length }} proyecto{{ projects|length != 1 ? 's' : '' }}</p>
+        </div>
+
+        <div class="project-list">
+            {% for project in projects %}
+                <div class="project-item">
+                    <div class="project-color-bar" style="background: {{ project.color }};"></div>
+                    <div class="project-content">
+                        <div class="project-title">{{ project.name }}</div>
+                        {% if project.description %}
+                            <div class="project-desc">{{ project.description }}</div>
+                        {% endif %}
+                        <div class="project-meta">
+                            <span class="project-task-count">
+                                {{ project.todos|length }} tarea{{ project.todos|length != 1 ? 's' : '' }}
+                            </span>
+                            <span class="project-date">{{ project.createdAt|date('d/m/Y') }}</span>
+                        </div>
+                    </div>
+                    <div class="project-actions">
+                        <a href="{{ path('app_project_show', {id: project.id}) }}" class="btn-view">👁</a>
+                        <a href="{{ path('app_project_edit', {id: project.id}) }}" class="btn-edit">✏️</a>
+                        <a href="{{ path('app_project_delete', {id: project.id}) }}" class="btn-danger">🗑</a>
+                    </div>
+                </div>
+            {% else %}
+                <div class="empty-state">
+                    <span class="empty-icon">📁</span>
+                    <p>No tienes proyectos todavía</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a href="{{ path('app_project_create') }}" class="btn-create">
+            + Crear proyecto
+        </a>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F7F5F0;
+    margin: 0;
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* ── Logout button ── */
+.btn-logout {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid #e0ddd6;
+    background: white;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.btn-logout:hover {
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+/* ── Tasks shortcut button ── */
+.btn-tasks {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #888;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    border: 1px solid #e0ddd6;
+    background: white;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.btn-tasks:hover {
+    color: #1a1a1a;
+    border-color: #1a1a1a;
+}
+
+/* ── Page layout ── */
+.page-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+}
+
+/* ── Header ── */
+.page-header {
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.5px;
+}
+
+.page-header .subtitle {
+    font-size: 14px;
+    color: #999;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+/* ── Project list ── */
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* ── Project item ── */
+.project-item {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #ebe8e1;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.15s ease;
+    animation: slideIn 0.3s ease both;
+}
+
+.project-item:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+    transform: translateY(-1px);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Color bar ── */
+.project-color-bar {
+    width: 5px;
+    align-self: stretch;
+    flex-shrink: 0;
+}
+
+/* ── Project content ── */
+.project-content {
+    flex: 1;
+    min-width: 0;
+    padding: 18px 0;
+}
+
+.project-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-desc {
+    font-size: 13px;
+    color: #888;
+    margin-top: 3px;
+    font-weight: 300;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.project-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 6px;
+}
+
+.project-task-count {
+    font-size: 11px;
+    color: #aaa;
+    background: #f5f3ef;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.project-date {
+    font-size: 11px;
+    color: #bbb;
+    letter-spacing: 0.3px;
+}
+
+/* ── Project actions ── */
+.project-actions {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    padding-right: 12px;
+}
+
+.btn-view {
+    background: none;
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-view:hover {
+    background: #f5f3ef;
+    color: #888;
+}
+
+.btn-edit {
+    background: none;
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+}
+
+.btn-edit:hover {
+    background: #f0f6ff;
+    color: #4A90E2;
+}
+
+.btn-danger {
+    background: none;
+    color: #ccc;
+    text-decoration: none;
+    padding: 6px 8px;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.btn-danger:hover {
+    background: #fff0ef;
+    color: #e74c3c;
+}
+
+/* ── Empty state ── */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #bbb;
+}
+
+.empty-state .empty-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    display: block;
+    opacity: 0.4;
+}
+
+.empty-state p {
+    font-size: 16px;
+    font-weight: 300;
+    margin: 0;
+}
+
+/* ── Create button ── */
+.btn-create {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 14px 20px;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    width: 100%;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.btn-create:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn-create:active {
+    transform: translateY(0);
+}
