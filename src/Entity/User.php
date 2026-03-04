@@ -27,11 +27,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Project>
      */
     #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'owner')]
-    private Collection $todos;
+    private Collection $projects;
 
     public function __construct()
     {
-        $this->todos = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,7 +61,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    // Métodos requeridos por UserInterface
     public function getUserIdentifier(): string
     {
         return (string) $this->username;
@@ -77,27 +76,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Project>
      */
-    public function getTodos(): Collection
+    public function getProjects(): Collection
     {
-        return $this->todos;
+        return $this->projects;
     }
 
-    public function addTodo(Project $todo): static
+    public function addProject(Project $project): static
     {
-        if (!$this->todos->contains($todo)) {
-            $this->todos->add($todo);
-            $todo->setOwner($this);
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->setOwner($this);
         }
 
         return $this;
     }
 
-    public function removeTodo(Project $todo): static
+    public function removeProject(Project $project): static
     {
-        if ($this->todos->removeElement($todo)) {
-            // set the owning side to null (unless already changed)
-            if ($todo->getOwner() === $this) {
-                $todo->setOwner(null);
+        if ($this->projects->removeElement($project)) {
+            if ($project->getOwner() === $this) {
+                $project->setOwner(null);
             }
         }
 

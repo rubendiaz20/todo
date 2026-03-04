@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block nav %}{% endblock %}
+{% block title %}Editar Proyecto{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Projects/editProject.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="page-wrapper">
+
+        <div class="page-header">
+            <h1>Editar proyecto</h1>
+            <p class="subtitle">Modifica los detalles de tu proyecto</p>
+        </div>
+
+        <div class="form-wrapper">
+            {{ form_start(editProjectForm, { action: path('app_project_edit', { id: project.id }), method: 'POST' }) }}
+            <div class="form-group">
+                {{ form_label(editProjectForm.name) }}
+                {{ form_widget(editProjectForm.name) }}
+                {{ form_errors(editProjectForm.name) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(editProjectForm.description) }}
+                {{ form_widget(editProjectForm.description) }}
+                {{ form_errors(editProjectForm.description) }}
+            </div>
+            <div class="actions">
+                <a href="{{ path('app_project_list') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn">Guardar cambios</button>
+            </div>
+            {{ form_end(editProjectForm) }}
+        </div>
+
+    </div>
+{% endblock %}

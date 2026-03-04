@@ -19,7 +19,7 @@
         <div class="project-list">
             {% for project in projects %}
                 <div class="project-item">
-                    <div class="project-color-bar" style="background: {{ project.color }};"></div>
+                    <div></div>
                     <div class="project-content">
                         <div class="project-title">{{ project.name }}</div>
                         {% if project.description %}
@@ -35,6 +35,7 @@
                     <div class="project-actions">
                         <a href="{{ path('app_project_show', {id: project.id}) }}" class="btn-view">👁</a>
                         <a href="{{ path('app_project_edit', {id: project.id}) }}" class="btn-edit">✏️</a>
+                        <a href="{{ path('app_project_edit_with_todos', {id: project.id}) }}" class="btn-edit">📝</a>
                         <a href="{{ path('app_project_delete', {id: project.id}) }}" class="btn-danger">🗑</a>
                     </div>
                 </div>

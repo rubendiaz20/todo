@@ -6,6 +6,7 @@ use App\Entity\Project;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,14 +15,17 @@ class CreateProjectFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
+            ->add('name', TextType::class, [
+                'label' => 'Nombre',
+                'attr'  => [
+                    'placeholder' => '¿Qué tienes que hacer?',
+                ],
             ])
-            ->add('owner', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
+            ->add('description', TextType::class, [
+                'label' => 'Descripcion',
+                'attr'  => [
+                    'placeholder' => '¿Qué tienes que hacer?',
+                ],
             ])
         ;
     }

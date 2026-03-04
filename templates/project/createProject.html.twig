@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block nav %}{% endblock %}
+{% block title %}Crear Proyecto{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Projects/createProject.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="page-wrapper">
+
+        <div class="page-header">
+            <h1>Nuevo proyecto</h1>
+            <p class="subtitle">Añade los detalles de tu proyecto</p>
+        </div>
+
+        <div class="form-wrapper">
+            {{ form_start(createProjectForm, { action: path('app_project_create'), method: 'POST' }) }}
+            <div class="form-group">
+                {{ form_label(createProjectForm.name) }}
+                {{ form_widget(createProjectForm.name) }}
+                {{ form_errors(createProjectForm.name) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(createProjectForm.description) }}
+                {{ form_widget(createProjectForm.description) }}
+                {{ form_errors(createProjectForm.description) }}
+            </div>
+            <div class="actions">
+                <a href="{{ path('app_project_list') }}" class="btn btn-secondary">Cancelar</a>
+                <button type="submit" class="btn">Crear proyecto</button>
+            </div>
+            {{ form_end(createProjectForm) }}
+        </div>
+
+    </div>
+{% endblock %}

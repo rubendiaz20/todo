@@ -14,7 +14,7 @@
         </div>
 
         <div class="form-wrapper">
-            {{ form_start(createTodoForm, { action: path('app_todo_create'), method: 'POST' }) }}
+            {{ form_start(createTodoForm, { action: path('app_todo_create', {project_id: project.id}), method: 'POST'}) }}
             <div class="form-group">
                 {{ form_label(createTodoForm.title) }}
                 {{ form_widget(createTodoForm.title) }}
@@ -24,7 +24,7 @@
                 {{ form_widget(createTodoForm.description) }}
             </div>
             <div class="actions">
-                <a href="{{ path('app_list') }}" class="btn btn-secondary">Cancelar</a>
+                <a href="{{ project is defined and project ? path('app_project_show', {id: project.id}) : path('app_list') }}" class="btn btn-secondary">Cancelar</a>
                 <button type="submit" class="btn">Crear tarea</button>
             </div>
             {{ form_end(createTodoForm) }}

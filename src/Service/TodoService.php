@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Project;
 use App\Entity\Todo;
 use App\Entity\User;
 use App\Repository\TodoRepository;
@@ -19,13 +20,14 @@ class TodoService
         return $this->todoRepository->findBy(['userTodo' => $user]);
     }
 
-    public function create(string $title, string $description, User $user): Todo
+    public function create(string $title, string $description, User $user, ?Project $project): Todo
     {
         $todo = new Todo();
         $todo->setTitle($title);
         $todo->setDescription($description);
         $todo->setDone(false);
         $todo->setUserTodo($user);
+        $todo->setProject($project);
 
         $this->em->persist($todo);
         $this->em->flush();

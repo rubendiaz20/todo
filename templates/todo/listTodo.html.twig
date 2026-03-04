@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block nav %}{% endblock %}
-{% block title %}Todo List{% endblock %}
+{% block title %}{{ project is defined ? project.name : 'Mis tareas' }}{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('styles/Todo/listTodo.css') }}">
 {% endblock %}
 {% block body %}
 
-    <a href="{{ path('app_logout') }}" class="btn-logout">← Salir</a>
+    <a href="{{ path('app_project_list') }}" class="btn-logout">← Proyectos</a>
 
     <div class="page-wrapper">
 
         <div class="page-header">
-            <h1>Mis tareas</h1>
+            <h1>{{ project is defined ? project.name : 'Mis tareas' }}</h1>
+            {% if project is defined and project.description %}
+                <p class="project-description">{{ project.description }}</p>
+            {% endif %}
             <p class="subtitle">{{ todos|length }} tarea{{ todos|length != 1 ? 's' : '' }}</p>
         </div>
 
@@ -44,7 +47,7 @@
             {% endfor %}
         </div>
 
-        <a href="{{ path('app_todo_create') }}" class="btn-create">
+        <a href="{{ path('app_todo_create', project is defined ? {project_id: project.id} : {}) }}" class="btn-create">
             + Crear tarea
         </a>
 

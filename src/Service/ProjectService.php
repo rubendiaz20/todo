@@ -19,12 +19,13 @@ class ProjectService
         return $this->projectRepository->findBy(['owner' => $user]);
     }
 
-    public function create(string $name, ?string $description, string $color, User $user): Project
+    public function create(string $name, ?string $description, User $user): Project
     {
         $project = new Project();
         $project->setName($name);
         $project->setDescription($description);
         $project->setOwner($user);
+
 
         $this->em->persist($project);
         $this->em->flush();
@@ -32,7 +33,7 @@ class ProjectService
         return $project;
     }
 
-    public function update(Project $project, string $name, ?string $description, string $color): void
+    public function update(Project $project, string $name, ?string $description): void
     {
         $project->setName($name);
         $project->setDescription($description);

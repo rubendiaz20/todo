@@ -26,7 +26,7 @@ class Project
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne (inversedBy: 'projects')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $owner = null;
 
@@ -38,6 +38,7 @@ class Project
 
     public function __construct()
     {
+        $this->createdAt = new \DateTimeImmutable();
         $this->todos = new ArrayCollection();
     }
 

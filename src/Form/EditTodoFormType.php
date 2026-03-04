@@ -28,10 +28,6 @@ class EditTodoFormType extends AbstractType
                     'placeholder' => 'Detalles opcionales...',
                 ],
             ])
-            ->add('done', CheckboxType::class, [
-                'label'    => 'Completada',
-                'required' => false,
-            ])
         ;
     }
 

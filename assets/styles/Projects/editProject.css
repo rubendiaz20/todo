@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F7F5F0;
+    margin: 0;
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* ── Page layout ── */
+.page-wrapper {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+}
+
+/* ── Header ── */
+.page-header {
+    margin-bottom: 40px;
+}
+
+.page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 42px;
+    font-weight: 400;
+    color: #1a1a1a;
+    margin: 0 0 4px 0;
+    letter-spacing: -0.5px;
+}
+
+.page-header .subtitle {
+    font-size: 14px;
+    color: #999;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+/* ── Form wrapper ── */
+.form-wrapper {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #ebe8e1;
+    padding: 32px;
+    animation: slideIn 0.3s ease both;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ── Form groups ── */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+    letter-spacing: 0.2px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    border: 1px solid #ebe8e1;
+    border-radius: 10px;
+    background: #fafaf8;
+    color: #1a1a1a;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #1a1a1a;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(26, 26, 26, 0.06);
+}
+
+.form-group textarea {
+    height: 110px;
+    resize: vertical;
+}
+
+/* ── Actions ── */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.btn {
+    flex: 1;
+    padding: 14px 20px;
+    background: #1a1a1a;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    letter-spacing: 0.2px;
+}
+
+.btn:hover {
+    background: #333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: none;
+    color: #888;
+    border: 1px solid #ebe8e1;
+}
+
+.btn-secondary:hover {
+    background: #fafaf8;
+    color: #1a1a1a;
+    border-color: #d4cfc7;
+    box-shadow: none;
+}

@@ -5,7 +5,9 @@ namespace App\Controller;
 use App\Entity\Project;
 use App\Form\CreateProjectFormType;
 use App\Form\EditProjectFormType;
+use App\Form\EditTodoFormType;
 use App\Service\ProjectService;
+use App\Service\TodoService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,8 @@ use Symfony\Component\Routing\Attribute\Route;
 final class ProjectController extends AbstractController
 {
     public function __construct(
-        private ProjectService $projectService
+        private ProjectService $projectService,
+        private TodoService $todoService
     ) {}
 
     #[Route('/projects', name: 'app_project_list')]
@@ -39,7 +42,6 @@ final class ProjectController extends AbstractController
             $this->projectService->create(
                 $data->getName(),
                 $data->getDescription(),
-                $data->getColor(),
                 $this->getUser()
             );
 
@@ -51,7 +53,7 @@ final class ProjectController extends AbstractController
         ]);
     }
 
-    #[Route('/project/{id}', name: 'app_project_show')]
+    #[Route('/project/{id}/show', name: 'app_project_show')]
     public function show(Project $project): Response
     {
         return $this->render('project/showProject.html.twig', [
@@ -70,8 +72,7 @@ final class ProjectController extends AbstractController
             $this->projectService->update(
                 $project,
                 $project->getName(),
-                $project->getDescription(),
-                $project->getColor()
+                $project->getDescription()
             );
 
             return $this->redirectToRoute('app_project_list');
@@ -80,6 +81,41 @@ final class ProjectController extends AbstractController
         return $this->render('project/editProject.html.twig', [
             'editProjectForm' => $form,
             'project'         => $project,
+        ]);
+    }
+
+    #[Route('/project/{id}/edit-with-todos', name: 'app_project_edit_with_todos')]
+    public function editWithTodos(Project $project, Request $request): Response
+    {
+        $projectForm = $this->createForm(EditProjectFormType::class, $project);
+        $projectForm->handleRequest($request);
+
+        if ($projectForm->isSubmitted() && $projectForm->isValid()) {
+            $this->projectService->update(
+                $project,
+                $project->getName(),
+                $project->getDescription()
+            );
+
+            $this->addFlash('success', 'Proyecto actualizado correctamente.');
+
+            return $this->redirectToRoute('app_project_edit_with_todos', ['id' => $project->getId()]);
+        }
+
+        $todoForms = [];
+        foreach ($project->getTodos() as $todo) {
+            $todoForm = $this->createForm(EditTodoFormType::class, $todo, [
+                'action' => $this->generateUrl('app_todo_edit_from_project', [
+                    'id' => $todo->getId(),
+                ]),
+            ]);
+            $todoForms[$todo->getId()] = $todoForm->createView();
+        }
+
+        return $this->render('project/editProjectAndTodo.html.twig', [
+            'project'     => $project,
+            'projectForm' => $projectForm,
+            'todoForms'   => $todoForms,
         ]);
     }
 

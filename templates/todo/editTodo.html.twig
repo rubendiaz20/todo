@@ -23,10 +23,6 @@
                 {{ form_label(editTodoForm.description) }}
                 {{ form_widget(editTodoForm.description) }}
             </div>
-            <div class="form-group">
-                {{ form_widget(editTodoForm.done) }}
-                {{ form_label(editTodoForm.done) }}
-            </div>
             <div class="actions">
                 <a href="{{ path('app_list') }}" class="btn btn-secondary">Cancelar</a>
                 <button type="submit" class="btn">Guardar cambios</button>

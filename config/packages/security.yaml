@@ -20,7 +20,8 @@ security:
                 check_path: app_login
                 username_parameter: _username
                 password_parameter: _password
-                default_target_path: /list
+                default_target_path: /projects
+                always_use_default_target_path: true
             logout:
                 path: app_logout
 

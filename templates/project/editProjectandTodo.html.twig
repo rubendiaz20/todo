@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block nav %}{% endblock %}
+{% block title %}Editar Proyecto con sus tareas{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/Projects/editProjectwithTodo.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="edit-project-wrapper">
+
+        <h1>Editar proyecto</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="flash flash--success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="flash flash--error">{{ message }}</div>
+        {% endfor %}
+
+        {# ── Datos del proyecto ── #}
+        <section class="form-section">
+            <h2>Datos del proyecto</h2>
+
+            {{ form_start(projectForm) }}
+            <div class="form-group">
+                {{ form_label(projectForm.name) }}
+                {{ form_widget(projectForm.name) }}
+                {{ form_errors(projectForm.name) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(projectForm.description) }}
+                {{ form_widget(projectForm.description) }}
+                {{ form_errors(projectForm.description) }}
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn--primary">Guardar proyecto</button>
+                <a href="{{ path('app_project_list') }}" class="btn btn--secondary">Cancelar</a>
+            </div>
+            {{ form_end(projectForm) }}
+        </section>
+
+        {# ── Tareas del proyecto ── #}
+        <section class="form-section">
+            <h2>Tareas del proyecto</h2>
+
+            {% if todoForms is empty %}
+                <p class="no-todos">Este proyecto no tiene tareas todavía.</p>
+            {% else %}
+                <div class="todos-list">
+                    {% for todoId, todoForm in todoForms %}
+
+                        {% set todo = project.todos.filter(t => t.id == todoId)|first %}
+
+                        <div class="todo-item {% if todo.done %}todo-item--done{% endif %}">
+
+                            <div class="todo-item__header">
+                                <span class="todo-item__index">#{{ loop.index }}</span>
+                                <span class="todo-item__status">
+                                {% if todo.done %}✅ Completada{% else %}🕐 Pendiente{% endif %}
+                            </span>
+                            </div>
+
+                            {{ form_start(todoForm) }}
+                            <div class="form-group">
+                                {{ form_label(todoForm.title) }}
+                                {{ form_widget(todoForm.title) }}
+                                {{ form_errors(todoForm.title) }}
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(todoForm.description) }}
+                                {{ form_widget(todoForm.description) }}
+                                {{ form_errors(todoForm.description) }}
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn--primary">Guardar tarea</button>
+                            </div>
+                            {{ form_end(todoForm) }}
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </section>
+
+    </div>
+{% endblock %}
